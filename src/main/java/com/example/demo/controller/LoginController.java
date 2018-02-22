@@ -4,12 +4,12 @@ import com.example.demo.DO.User;
 import com.example.demo.VO.BaseResponse;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sun.awt.SunHints;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +25,7 @@ public class LoginController {
             @ApiImplicitParam(paramType = "query", name = "username", defaultValue = "jack", value = "用户名"),
             @ApiImplicitParam(paramType = "query", name = "password", defaultValue = "123", value = "密码"),
     })
+    @ApiOperation(value = "登录",notes = "登录")
     public BaseResponse login(String username, String password, HttpSession httpSession) {
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
@@ -37,4 +38,13 @@ public class LoginController {
             return new BaseResponse(890,"error");
         }
     }
+
+    @GetMapping(value = "logout")
+    @ApiOperation(value = "登出",notes = "登出")
+    public BaseResponse logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return new BaseResponse(0,"已登出");
+    }
+
 }

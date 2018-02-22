@@ -1,12 +1,13 @@
 package com.example.demo.DO;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by zonzie on 2017/12/20.
  */
-public class User {
+public class User implements Serializable {
 
     private Integer uid;
     private String username;

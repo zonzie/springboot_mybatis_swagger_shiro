@@ -6,6 +6,15 @@ spring:
     url: jdbc:mysql://192.168.198.128:3306/permissionTest?characterEncoding=UTF-8
     username: root
     password: 1234
+  redis:
+    host: 192.168.198.128
+    password:
+    database: 1
+    timeout: 300000
+    pool.max-active: 20
+    pool.max-idle: 5
+    pool.max-wait: -1
+    pool.min-idle: 0
 
 #    druid:
 #      initialSize: 1 #初始化连接数量

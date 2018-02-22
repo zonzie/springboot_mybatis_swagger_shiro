@@ -7,6 +7,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.subject.Subject;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,13 +26,16 @@ public class helloController {
     @Resource
     private CityMapper cityMapper;
 
-    @RequestMapping("/test")
+    @Resource(name = "redisTemplate")
+    private RedisTemplate redisTemplate;
+
+    @GetMapping("/test")
     @RequiresGuest
     String test1() {
         return "hello,test1";
     }
 
-    @RequestMapping("/findCity")
+    @GetMapping("/findCity")
     @RequiresAuthentication
     Object findCity(@RequestParam String id) {
         Subject subject = SecurityUtils.getSubject();
